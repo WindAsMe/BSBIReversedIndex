@@ -31,11 +31,11 @@ public class DemoApplication {
 				titles.clear();
 				contexts.clear();
 			}
-			// System.out.println("map1: " + map1.toString());
-			// System.out.println("map2: " + map2.toString());
+//			 System.out.println("map1: " + map1.toString());
+//			 System.out.println("map2: " + map2.toString());
 			System.out.println(map2.get("computation"));
 			List<Map.Entry<String, Integer>> listSequence = bsbi.createReversedIndex(map1);
-			System.out.println(listSequence.toString());
+//			System.out.println(listSequence.toString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
