@@ -24,19 +24,25 @@ public class BSBI {
         set.add("a");
         set.add("an");
         set.add("am");
+        set.add("are");
+        set.add("and");
         set.add("i");
+        set.add("it");
+        set.add("is");
         set.add("you");
         set.add("we");
         set.add("us");
         set.add("he");
         set.add("she");
+        set.add("to");
         set.add("the");
-        set.add("are");
         set.add("there");
         set.add("these");
         set.add("those");
         set.add("them");
+        set.add("that");
         set.add("of");
+        set.add("for");
         set.add("from");
         set.add("in");
         set.add("on");
@@ -95,7 +101,8 @@ public class BSBI {
         }};
     }
 
-    public void createContextMap(List<String> list, Map<String, Integer> map1, Map<String, List<Tuple>> map2, int time, int flag) {
+    // Create map both of map1 and map2
+    public void createMap(List<String> list, Map<String, Integer> map1, Map<String, List<Tuple>> map2, int time, int flag) {
         for (int i = 0; i < list.size(); i++) {
             String s = String.format("%s ", list.get(i));
             char[] chars = s.toCharArray();
@@ -125,6 +132,17 @@ public class BSBI {
                 }
             }
         }
+    }
+
+    public List<Map.Entry<String, Integer>> createReversedIndex(Map<String, Integer> map) {
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(map.entrySet());
+        entries.sort((o1, o2) -> {
+            if (!o1.getValue().equals(o2.getValue()))
+                return o1.getValue() - o2.getValue();
+            else
+                return o1.getKey().compareTo(o2.getKey());
+        });
+        return entries;
     }
 
 }

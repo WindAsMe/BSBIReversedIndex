@@ -23,17 +23,20 @@ public class DemoApplication {
 				Map<String, Integer> contextsMap = new HashMap<>();
 				Map<String, List<Tuple>> titlesTupleMap = new HashMap<>();
 				Map<String, List<Tuple>> contextsTupleMap= new HashMap<>();
-				bsbi.createContextMap(titles, titlesMap, titlesTupleMap, time, 1);
-				bsbi.createContextMap(contexts, contextsMap, contextsTupleMap, time, 2);
+				bsbi.createMap(titles, titlesMap, titlesTupleMap, time, 1);
+				bsbi.createMap(contexts, contextsMap, contextsTupleMap, time, 2);
 				time++;
 				map1 = bsbi.mapMerge(map1, titlesMap, contextsMap);
 				map2 = bsbi.mapTupleMerge(map2, titlesTupleMap, contextsTupleMap);
 				titles.clear();
 				contexts.clear();
 			}
-			System.out.println("map1: " + map1.toString());
-			System.out.println("map2: " + map2.toString());
-			System.out.println(map2.get("abstract"));
+			// System.out.println("map1: " + map1.toString());
+			// System.out.println("map2: " + map2.toString());
+			System.out.println(map2.get("computation"));
+			List<Map.Entry<String, Integer>> listSequence = bsbi.createReversedIndex(map1);
+			System.out.println(listSequence.toString());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
