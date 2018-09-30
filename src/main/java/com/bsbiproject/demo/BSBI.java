@@ -95,15 +95,15 @@ public class BSBI {
         }};
     }
 
-    public void createContextMap(List<String> list, Map<String, Integer> map1, Map<String, List<Tuple>> map2) {
-        for (String s : list) {
-            s = String.format("%s ", s);
+    public void createContextMap(List<String> list, Map<String, Integer> map1, Map<String, List<Tuple>> map2, int time, int flag) {
+        for (int i = 0; i < list.size(); i++) {
+            String s = String.format("%s ", list.get(i));
             char[] chars = s.toCharArray();
             StringBuilder builder = new StringBuilder();
             for (char c : chars) {
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <='Z')) {
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <='Z'))
                     builder.append(c);
-                } else {
+                else {
                     if (set.contains(builder.toString()) || builder.length() < 2)
                         builder.delete(0, builder.length());
                     else {
@@ -111,6 +111,15 @@ public class BSBI {
                             map1.put(builder.toString(), map1.get(builder.toString()) + 1);
                         else
                             map1.put(builder.toString(), 1);
+                        if (map2.containsKey(builder.toString())) {
+                            List<Tuple> tuples = map2.get(builder.toString());
+                            tuples.add(new Tuple(time * 10 + i + 2, flag));
+                            map2.put(builder.toString(), tuples);
+                        } else {
+                            List<Tuple> tuples = new ArrayList<>();
+                            tuples.add(new Tuple(time * 10 + i + 2, flag));
+                            map2.put(builder.toString(), tuples);
+                        }
                         builder.delete(0, builder.length());
                     }
                 }

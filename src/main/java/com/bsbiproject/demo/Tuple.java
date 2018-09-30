@@ -35,4 +35,12 @@ public class Tuple {
     public void setY(int y) {
         this.y = y;
     }
+
+    @Override
+    public String toString() {
+        return "Tuple{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
