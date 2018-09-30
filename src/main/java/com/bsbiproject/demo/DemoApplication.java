@@ -8,15 +8,28 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		List<String> titles = new ArrayList<>();
 		List<String> contexts = new ArrayList<>();
-		Map<String, Integer> map = new HashMap<>();
+		// map1: context map
+		Map<String, Integer> map1 = new HashMap<>();
+		// map2: index map
+		Map<String, List<Tuple>> map2 = new HashMap<>();
 
 		BSBI bsbi = new BSBI();
 		try {
-			for (int i = 1; i <= 40; i += 10) {
+			int i = 1;
+			for (; i <= 40; i += 10) {
 				bsbi.readExcel(titles, contexts, i, i + 10);
-				System.out.println(titles.toString());
-				System.out.println(contexts.toString());
+				Map<String, Integer> titlesMap = new HashMap<>();
+				Map<String, Integer> contextsMap = new HashMap<>();
+				Map<String, List<Tuple>> titlesTupleMap = new HashMap<>();
+				Map<String, List<Tuple>> contextsTupleMap= new HashMap<>();
+				bsbi.createContextMap(titles, titlesMap, titlesTupleMap);
+				bsbi.createContextMap(contexts, contextsMap, contextsTupleMap);
+				map1 = bsbi.mapMerge(map1, titlesMap, contextsMap);
+				map2 = bsbi.mapTupleMerge(map2, titlesTupleMap, contextsTupleMap);
+				titles.clear();
+				contexts.clear();
 			}
+			System.out.println("map1: " + map1.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

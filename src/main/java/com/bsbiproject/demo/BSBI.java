@@ -50,7 +50,6 @@ public class BSBI {
         Workbook workbook = Workbook.getWorkbook(file);
         Sheet sheet = workbook.getSheet(0);
         if (sheet != null) {
-            int row = sheet.getRows();
             for (int i = start; i < end; i++) {
                 titles.add(trim(sheet.getCell(1, i).getContents()));
                 contexts.add(trim(sheet.getCell(2, i).getContents()));
@@ -78,11 +77,45 @@ public class BSBI {
         return s;
     }
 
-    public Map<String, Integer> mapMerge(Map<String, Integer> map1, Map<String, Integer> map2) {
+    // Merge the titles map and contexts map
+    public Map<String, Integer> mapMerge(Map<String, Integer> map1, Map<String, Integer> map2, Map<String, Integer> map3) {
         return new HashMap<String, Integer>() {{
             putAll(map1);
             putAll(map2);
+            putAll(map3);
         }};
+    }
+
+    // Merge the titles Tuple map and contexts Tuple map
+    public Map<String, List<Tuple>> mapTupleMerge(Map<String, List<Tuple>> map1, Map<String, List<Tuple>> map2, Map<String, List<Tuple>> map3) {
+        return new HashMap<String, List<Tuple>>() {{
+            putAll(map1);
+            putAll(map2);
+            putAll(map3);
+        }};
+    }
+
+    public void createContextMap(List<String> list, Map<String, Integer> map1, Map<String, List<Tuple>> map2) {
+        for (String s : list) {
+            s = String.format("%s ", s);
+            char[] chars = s.toCharArray();
+            StringBuilder builder = new StringBuilder();
+            for (char c : chars) {
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <='Z')) {
+                    builder.append(c);
+                } else {
+                    if (set.contains(builder.toString()) || builder.length() < 2)
+                        builder.delete(0, builder.length());
+                    else {
+                        if (map1.containsKey(builder.toString()))
+                            map1.put(builder.toString(), map1.get(builder.toString()) + 1);
+                        else
+                            map1.put(builder.toString(), 1);
+                        builder.delete(0, builder.length());
+                    }
+                }
+            }
+        }
     }
 
 }
