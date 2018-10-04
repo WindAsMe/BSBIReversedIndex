@@ -83,15 +83,6 @@ public class BSBI {
         return s;
     }
 
-    // Merge the titles map and contexts map
-    public Map<String, Integer> mapMerge(Map<String, Integer> map1, Map<String, Integer> map2, Map<String, Integer> map3) {
-        return new HashMap<String, Integer>() {{
-            putAll(map1);
-            putAll(map2);
-            putAll(map3);
-        }};
-    }
-
     // Merge the titles Tuple map and contexts Tuple map
     public Map<String, List<Tuple>> mapTupleMerge(Map<String, List<Tuple>> map1, Map<String, List<Tuple>> map2, Map<String, List<Tuple>> map3) {
         return new HashMap<String, List<Tuple>>() {{
@@ -134,11 +125,13 @@ public class BSBI {
         }
     }
 
-    public List<Map.Entry<String, Integer>> createReversedIndex(Map<String, Integer> map) {
-        List<Map.Entry<String, Integer>> entries = new ArrayList<>(map.entrySet());
+    // 1. Compare the frequency
+    // 2. Compare the String
+    public List<Map.Entry<String, List<Tuple>>> createReversedIndex(Map<String, List<Tuple>> map) {
+        List<Map.Entry<String, List<Tuple>>> entries = new ArrayList<>(map.entrySet());
         entries.sort((o1, o2) -> {
-            if (!o1.getValue().equals(o2.getValue()))
-                return o1.getValue() - o2.getValue();
+            if (o1.getValue().size() != o2.getValue().size())
+                return o1.getValue().size() - o2.getValue().size();
             else
                 return o1.getKey().compareTo(o2.getKey());
         });
