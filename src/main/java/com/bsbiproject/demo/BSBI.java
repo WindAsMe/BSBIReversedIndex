@@ -52,7 +52,8 @@ public class BSBI {
 
     // Read the context of Excel
     public void readExcel(List<String> titles, List<String> contexts, int start, int end) throws BiffException, IOException {
-        File file = new File("/home/zhongrui/IdeaProjects/BSBIProject/src/main/java/com/bsbiproject/demo/data_xlsx.xls");
+        File file = new File("src/main/resources/data_xlsx.xls");
+        // File file = new File("/home/zhongrui/IdeaProjects/BSBIProject/src/main/java/com/bsbiproject/demo/data_xlsx.xls");
         Workbook workbook = Workbook.getWorkbook(file);
         Sheet sheet = workbook.getSheet(0);
         if (sheet != null) {

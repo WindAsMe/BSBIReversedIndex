@@ -30,9 +30,12 @@ public class DemoApplication {
 			}
 //			 System.out.println("map1: " + map1.toString());
 //			 System.out.println("map2: " + map2.toString());
-			System.out.println(map.get("computation"));
+			System.out.println("Input searching word: ");
+			Scanner scanner = new Scanner(System.in);
+			String s = scanner.nextLine().toLowerCase();
+			System.out.println("Map get word: " + s +"\n" + map.get(s) + "\n");
 			List<Map.Entry<String, List<Tuple>>> listSequence = bsbi.createReversedIndex(map);
-			System.out.println(listSequence.toString());
+			System.out.println("Create Reversed Index\n" + listSequence.toString());
 
 		} catch (Exception e) {
 			e.printStackTrace();
