@@ -6,7 +6,7 @@ package com.bsbiproject.demo;
  * Time       : Create on 18-9-30
  * Location   : ../Home/BSBIProject/Tuple.java
  */
-// imitate the Tuple in Pyhton
+// imitate the Tuple in Python
 public class Tuple {
 
     private int x;

@@ -84,12 +84,16 @@ public class BSBI {
     }
 
     // Merge the titles Tuple map and contexts Tuple map
-    public Map<String, List<Tuple>> mapTupleMerge(Map<String, List<Tuple>> map1, Map<String, List<Tuple>> map2, Map<String, List<Tuple>> map3) {
-        return new HashMap<String, List<Tuple>>() {{
-            putAll(map1);
-            putAll(map2);
-            putAll(map3);
-        }};
+    public Map<String, List<Tuple>> mapTupleMerge(Map<String, List<Tuple>> map1, Map<String, List<Tuple>> map2) {
+        for (Map.Entry<String, List<Tuple>> entry : map2.entrySet()) {
+            if (map1.get(entry.getKey()) != null) {
+                List<Tuple> list = map1.get(entry.getKey());
+                list.addAll(entry.getValue());
+                map1.put(entry.getKey(), list);
+            } else
+                map1.put(entry.getKey(), entry.getValue());
+        }
+        return map1;
     }
 
     // Create map both of map1 and map2

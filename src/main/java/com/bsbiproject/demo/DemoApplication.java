@@ -24,7 +24,7 @@ public class DemoApplication {
 				bsbi.createMap(titles, titlesMap, titlesTupleMap, time, 1);
 				bsbi.createMap(contexts, contextsMap, contextsTupleMap, time, 2);
 				time++;
-				map = bsbi.mapTupleMerge(map, titlesTupleMap, contextsTupleMap);
+				map = bsbi.mapTupleMerge(map, bsbi.mapTupleMerge(titlesTupleMap, contextsTupleMap));
 				titles.clear();
 				contexts.clear();
 			}
