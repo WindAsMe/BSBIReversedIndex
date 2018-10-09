@@ -2,28 +2,27 @@ package com.bsbiproject.demo.domain;
 
 import com.huaban.analysis.jieba.SegToken;
 
-import java.util.List;
-
 /**
  * Author     : WindAsMe
- * File       : Tuple.java
+ * File       : Cell.java
  * Time       : Create on 18-10-9
- * Location   : ../Home/BSBIProject/Tuple.java
+ * Location   : ../Home/BSBIProject/Cell.java
  */
 // Data first normalization
-public class Tuple {
+public class Cell {
 
+    // The cell data
     private int id;
     private String url;
-    private List<SegToken> tokens;
+    private SegToken token;
 
-    public Tuple() {
+    public Cell() {
     }
 
-    public Tuple(int id, String url, List<SegToken> tokens) {
+    public Cell(int id, String url, SegToken token) {
         this.id = id;
         this.url = url;
-        this.tokens = tokens;
+        this.token = token;
     }
 
     public int getId() {
@@ -42,20 +41,20 @@ public class Tuple {
         this.url = url;
     }
 
-    public List<SegToken> getTokens() {
-        return tokens;
+    public SegToken getToken() {
+        return token;
     }
 
-    public void setTokens(List<SegToken> tokens) {
-        this.tokens = tokens;
+    public void setToken(SegToken token) {
+        this.token = token;
     }
 
     @Override
     public String toString() {
-        return "Tuple{" +
+        return "Cell{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", tokens=" + tokens +
+                ", token=" + token +
                 '}';
     }
 }
