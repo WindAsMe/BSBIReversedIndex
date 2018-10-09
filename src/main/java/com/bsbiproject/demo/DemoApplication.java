@@ -12,12 +12,10 @@ public class DemoApplication {
 
 
 	public static void main(String[] args) {
-
+		// Connection of Mysql
 		ConUtil conUtil = new ConUtil();
 		BSBIUtil bsbiUtil = new BSBIUtil();
 		List<JDModel> models = conUtil.getSelect();
-		for (JDModel model : models)
-			System.out.println(model.toString());
 		bsbiUtil.split(models);
 		List<Tuple> tuples = bsbiUtil.getTuples();
 		for (Tuple tuple : tuples)

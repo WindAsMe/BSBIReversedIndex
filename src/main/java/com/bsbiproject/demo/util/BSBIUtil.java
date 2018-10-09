@@ -34,6 +34,12 @@ public class BSBIUtil {
         segmenter = new JiebaSegmenter();
 
         this.set = new HashSet<>();
+        set.add("，");
+        set.add("。");
+        set.add("“");
+        set.add("");
+        set.add(" ");
+        set.add("①");
         set.add("的");
         set.add("你");
         set.add("我");
@@ -57,13 +63,15 @@ public class BSBIUtil {
 
     // NLP split the word
     public void split(List<JDModel> models) {
-        System.out.println("model length: " + models.size());
         for (JDModel model : models) {
             List<SegToken> tokens = segmenter.process(model.getTitle(), JiebaSegmenter.SegMode.INDEX);
+            System.out.println(tokens.toString());
             // trim the stop-word
-            for (SegToken token : tokens) {
-                if (set.contains(token.word))
-                    tokens.remove(token);
+            if (tokens.size() == 0)
+                continue;
+            for (int i = 0; i < tokens.size(); i++) {
+                if (set.contains(tokens.get(i).word))
+                    tokens.remove(i);
             }
 
             Tuple tuple = new Tuple(model.getUrl(), tokens);
