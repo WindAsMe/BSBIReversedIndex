@@ -1,10 +1,9 @@
 package com.bsbiproject.demo.util;
 
-import com.bsbiproject.demo.domain.model.JDModel;
-import com.bsbiproject.demo.domain.service.JDService;
+import com.bsbiproject.demo.domain.JDModel;
+import com.bsbiproject.demo.domain.Tuple;
 import com.huaban.analysis.jieba.JiebaSegmenter;
-
-import javax.annotation.Resource;
+import com.huaban.analysis.jieba.SegToken;
 import java.util.*;
 
 /**
@@ -15,20 +14,23 @@ import java.util.*;
  */
 public class BSBIUtil {
 
-    @Resource
-    private JDService service;
-
     // Emulate the common dictionary
     private Set<String> set;
 
     // NLP need structure
-    private List<JDModel> list;
-    private List<String> tities;
+    private List<Tuple> tuples;
     private JiebaSegmenter segmenter;
 
+    public List<Tuple> getTuples() {
+        return tuples;
+    }
+
+    public void setTuples(List<Tuple> tuples) {
+        this.tuples = tuples;
+    }
+
     public BSBIUtil() {
-        list = service.selectJDModelAll();
-        tities = new ArrayList<>();
+        tuples = new ArrayList<>();
         segmenter = new JiebaSegmenter();
 
         this.set = new HashSet<>();
@@ -53,29 +55,19 @@ public class BSBIUtil {
     }
 
 
-    // trim the String
-    private String trim(String s) {
-        s = s.toLowerCase();
-        s = s.replace('\'', ' ');
-        s = s.replace(':', ' ');
-        s = s.replace(',', ' ');
-        s = s.replace('.', ' ');
-        s = s.replace('-', ' ');
-        s = s.replace('[', ' ');
-        s = s.replace(']', ' ');
-        s = s.replace('(', ' ');
-        s = s.replace(')', ' ');
-        s = s.replace('“', ' ');
-        s = s.replace('‘', ' ');
-        s = s.replace('-', ' ');
-        return s;
-    }
+    // NLP split the word
+    public void split(List<JDModel> models) {
+        System.out.println("model length: " + models.size());
+        for (JDModel model : models) {
+            List<SegToken> tokens = segmenter.process(model.getTitle(), JiebaSegmenter.SegMode.INDEX);
+            // trim the stop-word
+            for (SegToken token : tokens) {
+                if (set.contains(token.word))
+                    tokens.remove(token);
+            }
 
-    private void split() {
-        for (JDModel model : list) {
-            String s = trim(segmenter.process(model.getTitle(), JiebaSegmenter.SegMode.INDEX).toString());
-
+            Tuple tuple = new Tuple(model.getUrl(), tokens);
+            tuples.add(tuple);
         }
     }
-
 }

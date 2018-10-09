@@ -1,4 +1,4 @@
-package com.bsbiproject.demo.domain.model;
+package com.bsbiproject.demo.domain;
 
 /**
  * Author     : WindAsMe
@@ -63,5 +63,16 @@ public class JDModel {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "JDModel{" +
+                "id=" + id +
+                ", page=" + page +
+                ", url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", price='" + price + '\'' +
+                '}';
     }
 }
