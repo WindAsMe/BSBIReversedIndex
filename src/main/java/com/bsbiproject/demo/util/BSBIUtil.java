@@ -14,18 +14,12 @@ import java.util.*;
  */
 public class BSBIUtil {
 
-
-
     // NLP need structure
     private List<Tuple> tuples;
     private JiebaSegmenter segmenter;
 
     public List<Tuple> getTuples() {
         return tuples;
-    }
-
-    public void setTuples(List<Tuple> tuples) {
-        this.tuples = tuples;
     }
 
     public BSBIUtil() {
