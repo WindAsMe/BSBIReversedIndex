@@ -6,6 +6,8 @@ import com.bsbiproject.demo.domain.JDModel;
 import com.bsbiproject.demo.domain.Tuple;
 import com.bsbiproject.demo.util.BSBIUtil;
 import com.bsbiproject.demo.util.ConUtil;
+import com.bsbiproject.demo.util.StopWordUtil;
+import com.huaban.analysis.jieba.JiebaSegmenter;
 import com.huaban.analysis.jieba.SegToken;
 
 import java.util.*;
@@ -54,7 +56,22 @@ public class DemoApplication {
 		System.out.println("Input the word: ");
 		if (scanner.hasNext()) {
 			String s = scanner.next();
-			List<Cell> list = map.get(s);
+            JiebaSegmenter segmenter = new JiebaSegmenter();
+            StopWordUtil util = new StopWordUtil();
+            List<SegToken> tokens = segmenter.process(s, JiebaSegmenter.SegMode.INDEX);
+            List<String> words = new ArrayList<>();
+            List<Cell> list = new ArrayList<>();
+            for (SegToken token : tokens) {
+                if (!util.stop(token.word))
+                    words.add(token.word);
+            }
+
+            for (String word : words)
+                list.addAll(map.get(word));
+            System.out.println("The input word after spilt:");
+            for (String word : words)
+                System.out.print(word + ", ");
+            System.out.println("The correlative essay:");
 			for (Cell c : list)
 				System.out.println(c.toString());
 		}
