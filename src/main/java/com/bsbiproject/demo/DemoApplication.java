@@ -65,12 +65,14 @@ public class DemoApplication {
                 if (!util.stop(token.word))
                     words.add(token.word);
             }
-
-            for (String word : words)
-                list.addAll(map.get(word));
+            for (String word : words) {
+                if (map.get(word) != null)
+                    list.addAll(map.get(word));
+            }
             System.out.println("The input word after spilt:");
             for (String word : words)
                 System.out.print(word + ", ");
+            System.out.println();
             System.out.println("The correlative essay:");
 			for (Cell c : list)
 				System.out.println(c.toString());
